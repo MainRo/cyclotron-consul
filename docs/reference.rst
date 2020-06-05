@@ -4,6 +4,5 @@ Reference
 ==========
 
 
-.. automodule:: cyclotron_consul
+.. automodule:: cyclotron_consul.kv
     :members:
-
