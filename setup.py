@@ -26,7 +26,7 @@ install_requires = [
 
 setup(
     name="cyclotron_consul",
-    version='0.0.0',
+    version='0.1.0',
     url='https://github.com/mainro/cyclotron_consul.git',
     license='MIT',
     description="A consul adapter for cyclotron",
