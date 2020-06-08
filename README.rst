@@ -16,8 +16,11 @@ Consul support for Cyclotron
 Key Features
 ============
 
+This is a `consul <https://www.consul.io/>`__ driver for cyclotron. For now only
+the KV Store API is exposed. The KV Adapter exposes an API to read and monitor
+key/value content.
+
 Getting started
 ===============
 
-
-
+See the examples directory for usage.
