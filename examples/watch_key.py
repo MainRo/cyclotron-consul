@@ -16,10 +16,10 @@ ReadKeyDrivers = namedtuple('ReadKeyDrivers', ['http', 'stdout'])
 
 
 def read_key(source):
-    kv_adapter = kv.adapter(http.ClientSource(source.http.response))
+    kv_adapter = kv.adapter(source.http.response)
 
     value = kv_adapter.api.watch_key("http://localhost:8500", "test").pipe(
-        ops.map(lambda i: "key: {}, value: {}".format(i.key, i.value))
+        ops.map(lambda i: "key: {}, value: {}".format(i.key, i.value)),
     )
 
     return ReadKeySink(

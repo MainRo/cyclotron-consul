@@ -124,6 +124,7 @@ def watch_key(http_client, endpoint, key):
     url = '{}/{}/{}'.format(endpoint, KV_PATH, key)
 
     feedback = Subject()
+
     def connect(): reponse_feedback.subscribe(feedback)
 
     init = rx.merge(feedback, rx.just(None))
@@ -135,7 +136,7 @@ def watch_key(http_client, endpoint, key):
                 _retry_on_timeout(i),
             )
         ),
-        ops.map(lambda i: i.data),
+        ops.map(lambda i: i.data.decode('utf-8')),
         ops.map(json.loads),
         ops.share(),
     )
@@ -145,7 +146,6 @@ def watch_key(http_client, endpoint, key):
     )
 
     key_value = response.pipe(
-
         ops.map(lambda i: KeyValue(
             key=i[0]['Key'],
             value=base64.b64decode(i[0]['Value']).decode('utf-8')
@@ -164,7 +164,7 @@ def adapter(source):
     Returns:
         A Client object
     '''
-    http_client = http.client(source)
+    http_client = http.client(http.ClientSource(source))
 
     return Adapter(
         sink=http_client.sink.http_request,
